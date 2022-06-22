@@ -1,7 +1,6 @@
 import React, { useReducer, useState } from "react";
 
 import { MdDone } from "react-icons/md";
-import { PayPalButton } from "react-paypal-button-v2";
 import { ShoppingCartProps } from "../../Types";
 
 function ShoppingCart({
