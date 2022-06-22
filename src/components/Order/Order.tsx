@@ -3,7 +3,6 @@ import React, { useState } from "react";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { FaSearch } from "react-icons/fa";
-import ItemPage from "./Item";
 
 function Order({ visible, items, AddToShoppingCart, categories }: OrderProps) {
   const [CurrentPage, setCurrentPage] = useState("main");
