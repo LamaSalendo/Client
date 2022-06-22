@@ -169,7 +169,10 @@ function Profile({
 
             <div className="flex justify-center items-center">
               <h1 className="pr-4 text-xl">Credit:</h1>
-              <h2 className="text-xl">{user.credit}</h2>
+              <h2 className="text-xl">
+                {user.credit.toFixed(2)}
+                {user.currency}
+              </h2>
             </div>
 
             <div className="w-[80%] max-w-[480px] text-center my-8 flex justify-center">
