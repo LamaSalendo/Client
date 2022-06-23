@@ -170,9 +170,20 @@ function Order({ visible, items, AddToShoppingCart, categories }: OrderProps) {
                     type="number"
                     className="w-10 text-center"
                     onChange={(e: any) => {
-                      setCurrentAmount(() => parseInt(e.target.value));
-                      console.log(currentAmount);
+                      let amount = parseInt(e.target.value);
+                      if (amount <= 0) {
+                        e.target.value = 1;
+                        amount = 1;
+                      } else if (amount > 10) {
+                        e.target.value = 10;
+                        amount = 10;
+                      } else if (isNaN(amount)) {
+                        amount = 1;
+                      }
+                      setCurrentAmount(() => amount);
                     }}
+                    max="10"
+                    min="1"
                   />
                 </div>
                 <div>

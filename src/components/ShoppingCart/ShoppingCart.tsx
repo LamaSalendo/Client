@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from "react";
 
 import { MdDone } from "react-icons/md";
+import PayPalButton from "./PayPal-Button";
 import { ShoppingCartProps } from "../../Types";
 
 function ShoppingCart({
@@ -12,11 +13,11 @@ function ShoppingCart({
 }: ShoppingCartProps) {
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [orderNumber, setOrderNumber] = useState<number>();
-  const HandleChangeOnAmountInput = (value: string, id: string) => {
-    if (!(parseInt(value) > 0)) {
+  const HandleChangeOnAmountInput = (e: any, id: string) => {
+    if (parseInt(e.target.value) <= 0) {
       ChangeAmountOfItemInShoppingCart(id, 1);
     } else {
-      ChangeAmountOfItemInShoppingCart(id, parseInt(value));
+      ChangeAmountOfItemInShoppingCart(id, parseInt(e.target.value));
     }
 
     forceUpdate();
@@ -69,8 +70,10 @@ function ShoppingCart({
                   name="amount"
                   placeholder={item.amount.toString()}
                   onChange={(e) => {
-                    HandleChangeOnAmountInput(e.target.value, item.id);
+                    HandleChangeOnAmountInput(e, item.id);
                   }}
+                  max="10"
+                  min="1"
                 />
               </div>
               <div className="text-sm">
@@ -94,7 +97,7 @@ function ShoppingCart({
       <div
         className={`w-screen bg-color-four h-screen absolute top-[-40px] ${
           orderNumber ? "flex" : "hidden"
-        } z-50 flex flex-col items-center justify-center`}
+        } z-[1000] flex flex-col items-center justify-center`}
       >
         <div className="mb-5">
           <h1>Thanks for your Order!</h1>
@@ -114,13 +117,17 @@ function ShoppingCart({
         <div>
           <div className="mt-20">{ShoppingCartItems}</div>
         </div>
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-10 flex-col items-center">
           <div className="border-2 border-color-two text-color-one rounded-sm">
             <button onClick={Buy} className="h-10 px-4">
               Buy Now ({PriceOfAllItems?.toFixed(2)}
               {shoppingCart[0]?.currency})
             </button>
           </div>
+          <PayPalButton
+            shoppingCart={shoppingCart}
+            setOrderNumber={setOrderNumber}
+          />
         </div>
       </div>
     </div>
